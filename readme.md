@@ -79,5 +79,5 @@ FOLDER STRUCTURE :-
         
 Run Project :-
 
-- npm install
-- npm start
+- npm install  --> to install dependencies
+- npm start     --> to run the server on localhost:8000
