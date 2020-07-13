@@ -7,8 +7,8 @@ exports.patientPassword = (patient) => {
     nodeMailer.transporter.sendMail({
        from: process.env.user_id,  // fetching user_id from .env file 
        to: patient.email,          // sending mail to provided id
-       subject: "Use this Password to check Reports!",
-       html: `<h1>${patient.password}</h1>`
+       subject: "Use these ID and Password to check Reports!",
+       html: `<h1>Patient-ID: ${patient.id}<br>Password ${patient.password}</h1>`
     }, (err, info) => {
         if (err){
             console.log('Error in sending mail', err);
