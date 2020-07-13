@@ -6,7 +6,7 @@ module.exports.reportsByStatus = async function(req, res){
         // fetching report with provided status and created by a current logged in doctor
         let reports = await Report.find({status: req.params.status, doctor: req.user.id})
             .sort('-createdAt')
-            .populate('patient', 'name mobile')
+            .populate('patient', 'name mobile email')
             .populate('doctor', 'name email');
             
             return res.json(200, {

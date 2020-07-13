@@ -18,6 +18,10 @@ const patientSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true
+    },
+    doctor: {
+        type:  mongoose.Schema.Types.ObjectId,
+        ref: 'Doctor'
     }
 }, {
     timestamps: true

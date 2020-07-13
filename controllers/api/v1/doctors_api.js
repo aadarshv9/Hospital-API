@@ -1,6 +1,7 @@
 // requiring jsonwebtoken to create token
 const jwt = require('jsonwebtoken');
 const Doctor = require('../../../models/doctor');
+const Patient = require('../../../models/patient');
 
 module.exports.register = async function(req, res){
 
@@ -16,7 +17,14 @@ module.exports.register = async function(req, res){
         let new_doctor = await Doctor.create({email: req.body.email, password: req.body.password, name: req.body.name});
         return res.json(500, {
             message: "Registered Successfully!",
-            data:new_doctor
+            data:{
+                id: new_doctor.id,
+                name: new_doctor.name,
+                email: new_doctor.email,
+                createdAt: new_doctor.createdAt,
+                updatedAt: new_doctor.updatedAt
+
+            }
         });
         
     }catch(err){
@@ -54,3 +62,31 @@ module.exports.createSession = async function(req, res){
         });
     }
 }
+
+module.exports.getPatients = async function(req, res){
+
+    try{
+        // finding patients of a doctor
+        let patients = await Patient.find({doctor: req.user.id}).populate('doctor', 'name');
+
+        if(patients && patients.lenght == 0){
+            return res.json(200, {
+                message: 'No Patients'
+            })
+        }
+    
+        return res.json(200, {
+            message: 'Your Patients',
+            data:  {
+                patinets: patients
+            }
+        })
+
+    }catch(err){
+        console.log('********', err);
+        return res.json(500, {
+            message: "Internal Server Error"
+        });
+    }
+}
+

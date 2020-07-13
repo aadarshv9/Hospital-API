@@ -21,17 +21,20 @@ module.exports.register = async function(req, res){
             length: 10,
             numbers: true
         });
-        let new_patient = await Patient.create({mobile: req.body.mobile, password:password, name: req.body.name, email: req.body.email});
+        
+        let new_patient = await Patient.create({mobile: req.body.mobile, password:password, name: req.body.name, email: req.body.email, doctor: req.user.id});
+        new_patient = await new_patient.populate('doctor').execPopulate();
         // sending password to patient mail
         passwordMailer.patientPassword(new_patient);
         
         return res.json(500, {
-            message: "Patient Registered Successfully, password sent to your mail",
+            message: "Patient Registered Successfully, password sent to patient's mail",
             data: {
                 id: new_patient.id,
                 patient_name: new_patient.name,
                 email: new_patient.email,
-                mobile: new_patient.mobile
+                mobile: new_patient.mobile,
+                doctor: new_patient.doctor.name
             }
         });
         

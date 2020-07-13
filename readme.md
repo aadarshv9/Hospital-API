@@ -42,6 +42,10 @@ API ENDPOINTS DETAIL :-
     -- This endpoint is used by a doctor to check all their generated reports till date according to the status.
     -- Pass status in request as a parameter and token in header part of the request(header --> authorization --> bearer token_generated).
 
+--> localhost:8000/api/v1/patients
+    -- This endpoint is used by a doctor retrieve a list of all their patients.
+    -- Pass token in header part of the request(header --> authorization --> bearer token_generated).
+
 FOLDER STRUCTURE :-
 
     |__HOSPITAL API
